@@ -1,0 +1,28 @@
+﻿@page "/roles"
+@using Models
+@using Services
+@inject IRolService RolService
+
+<MudText Typo="Typo.h4">Roles</MudText>
+<br />
+
+<MudGrid>
+    @foreach(var item in roles)
+    {
+        <MudItem xs="12" sm="10" md="6" lg="4">
+            <MudCard Width="85%" Heigth="100%" Class="d-flex flex-column">
+                <MudCardContent>
+                    <MudText Typo="Typo.body2"><b>Nombre: </b>@item.Nombre</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+    }
+</MudGrid>
+
+@code {
+    IEnumerable<Rol> roles = new List<Rol>();
+    protected override async Task OnInitializedAsync()
+    {
+        roles = await RolService.GetAll();
+    }
+}

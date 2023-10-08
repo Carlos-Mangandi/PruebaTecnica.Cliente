@@ -1,0 +1,32 @@
+﻿@page "/usuarios"
+@using Models
+@using Services
+@inject IUsuarioService UsuarioService
+
+<MudText Typo="Typo.h4">Usuarios</MudText>
+<br />
+
+<MudGrid>
+    @foreach(var item in usuarios)
+    {
+        <MudItem xs="12" sm="10" md="6" lg="4">
+            <MudCard Width="85%" Height="100%" Class="d-flex flex-column">
+                <MudCardContent>
+                    <MudText Typo="Typo.body2"><b>Nombres: </b> @item.Nombres</MudText>
+                    <MudText Typo="Typo.body2"><b>Apellidos: </b>  @item.Apellidos</MudText>
+                    <MudText Typo="Typo.body2"><b>Login: </b> @item.Login</MudText>
+
+                    @*<MudText Typo="Typo.h6"><b>Rol: </b> @item.Rol.Nombre</MudText>*@
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+    }
+</MudGrid>
+
+@code {
+    IEnumerable<Usuario> usuarios = new List<Usuario>();
+    protected override async Task OnInitializedAsync()
+    {
+        usuarios = await UsuarioService.GetAll();
+    }
+}
